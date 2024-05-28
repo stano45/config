@@ -121,3 +121,5 @@ b() {
 
  git checkout -b $1 
 }
+
+alias m="git checkout main && git pull"
