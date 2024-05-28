@@ -110,3 +110,14 @@ c() {
 
  git commit -m $1 && gp
 }
+
+# Checkout or create branch
+b() {
+ if [ $# -lt 1 ]
+ then
+   echo "Usage: $funcstack[1] \"<branch_name>\""
+   return
+ fi
+
+ git checkout -b $1 
+}
