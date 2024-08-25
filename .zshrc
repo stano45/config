@@ -25,7 +25,7 @@ ZSH_THEME="robbyrussell"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -100,26 +100,24 @@ export ARCHFLAGS="-arch x86_64"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Commit with message and push 
+# Commit with message and push
 c() {
- if [ $# -lt 1 ]
- then
-   echo "Usage: $funcstack[1] \"<commit_msg>\""
-   return
- fi
+  if [ $# -lt 1 ]; then
+    echo "Usage: $funcstack[1] \"<commit_msg>\""
+    return
+  fi
 
- git commit -m $1 && gp
+  git commit -m $1 && gp
 }
 
 # Checkout or create branch
 b() {
- if [ $# -lt 1 ]
- then
-   echo "Usage: $funcstack[1] \"<branch_name>\""
-   return
- fi
+  if [ $# -lt 1 ]; then
+    echo "Usage: $funcstack[1] \"<branch_name>\""
+    return
+  fi
 
- git checkout -b $1 
+  git checkout -b $1
 }
 
 alias m="git checkout main && git pull"
