@@ -2,13 +2,16 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
+source $HOME/.p10k.zsh
+
+# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,7 +73,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,8 +103,18 @@ export ARCHFLAGS="-arch x86_64"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# checkout branch (create if it doesnt exist)
+function b {
+  if [ $# -lt 1 ]; then
+    echo "Usage: $funcstack[1] <branch-name>"
+    return
+  fi
+
+  gco $1 || gcb $1
+}
+
 # Commit with message and push
-c() {
+function c {
   if [ $# -lt 1 ]; then
     echo "Usage: $funcstack[1] \"<commit_msg>\""
     return
@@ -110,14 +123,11 @@ c() {
   git commit -m $1 && gp
 }
 
-# Checkout or create branch
-b() {
-  if [ $# -lt 1 ]; then
-    echo "Usage: $funcstack[1] \"<branch_name>\""
-    return
-  fi
-
-  git checkout -b $1
+# checkout main and pull
+function m {
+  gcm && git pull
 }
 
-alias m="git checkout main && git pull"
+function killport {
+  lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
+}
